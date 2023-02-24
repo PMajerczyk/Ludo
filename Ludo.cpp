@@ -1,14 +1,15 @@
 ﻿#include <SFML/Graphics.hpp>
+#include "board&pawns.h"
 
 #define WIDTH 1200     // window size
-#define HEIGHT 900
+#define HEIGHT 950
 
 sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "Ludo", sf::Style::Titlebar | sf::Style::Close);     // window
 sf::CircleShape shape1(8), shape2(8), shape3(8), shape4(8), shape5(8), shape6(8), shape7(8), shape8(16);     // circles
 sf::RectangleShape square, button;     // rectangles
 sf::Event event;     // key i mouse
 sf::Font font, font1;     // fonts
-
+board b1, b2, b3, b4, y2, y3, y4, y5, g1, g2, g3, g4, r1, r2, r3, r4;
 
 void dice(int n) 
 {
@@ -40,6 +41,42 @@ void dice(int n)
     if(n==6 || n==5 || n==4) window.draw(shape7);
 }
 
+void boardfield()
+{
+    b1.field(WIDTH / 2 - 155, HEIGHT / 2 - 50, 0, 0, 250);      // blue fields
+    b2.field(WIDTH / 2 - 260, HEIGHT / 2 - 50, 0, 0, 250);
+    b3.field(WIDTH / 2 - 365, HEIGHT / 2 - 50, 0, 0, 250);
+    b4.field(WIDTH / 2 - 470, HEIGHT / 2 - 50, 0, 0, 250);
+    window.draw(b1);
+    window.draw(b2);
+    window.draw(b3);
+    window.draw(b4);
+    y5.field(WIDTH / 2 - 50, HEIGHT / 2 - 155, 250, 250, 0);     // yellow fields
+    y2.field(WIDTH / 2 - 50, HEIGHT / 2 - 260, 250, 250, 0);
+    y3.field(WIDTH / 2 - 50, HEIGHT / 2 - 365, 250, 250, 0);
+    y4.field(WIDTH / 2 - 50, HEIGHT / 2 - 470, 250, 250, 0);
+    window.draw(y5);
+    window.draw(y2);
+    window.draw(y3);
+    window.draw(y4);
+    g1.field(WIDTH / 2 + 55, HEIGHT / 2 - 50, 0, 250, 0);     // green fields
+    g2.field(WIDTH / 2 + 160, HEIGHT / 2 - 50, 0, 250, 0);
+    g3.field(WIDTH / 2 + 265, HEIGHT / 2 - 50, 0, 250, 0);
+    g4.field(WIDTH / 2 + 370, HEIGHT / 2 - 50, 0, 250, 0);
+    window.draw(g1);
+    window.draw(g2);
+    window.draw(g3);
+    window.draw(g4);
+    r1.field(WIDTH / 2 - 50, HEIGHT / 2 + 55, 250, 0, 0);     // red fields
+    r2.field(WIDTH / 2 - 50, HEIGHT / 2 + 160, 250, 0, 0);
+    r3.field(WIDTH / 2 - 50, HEIGHT / 2 + 265, 250, 0, 0);
+    r4.field(WIDTH / 2 - 50, HEIGHT / 2 + 370, 250, 0, 0);
+    window.draw(r1);
+    window.draw(r2);
+    window.draw(r3);
+    window.draw(r4);
+}
+
 int main()
 {
     font.loadFromFile("arial.ttf");
@@ -49,28 +86,28 @@ int main()
     text.setFillColor(sf::Color::Black);
     text.setCharacterSize(150);
     sf::Text text1("press to start game", font);     // button
-    text1.setPosition(160, 700);
+    text1.setPosition(160, 750);
     text1.setFillColor(sf::Color::Black);
     text1.setCharacterSize(20);
     sf::Text text2("START", font);
-    text2.setPosition(170, 620);
+    text2.setPosition(170, 670);
     text2.setFillColor(sf::Color::Black);
     text2.setCharacterSize(50);
     button.setFillColor(sf::Color::Red);
     button.setSize(sf::Vector2f(200, 70));
     button.setOutlineThickness(5);
     button.setOutlineColor(sf::Color::Black);
-    button.setPosition(150,620);
+    button.setPosition(150,670);
     sf::Text text3("Instruction:", font);     //instruction
-    text3.setPosition(750, 590);
+    text3.setPosition(750, 640);
     text3.setFillColor(sf::Color::Red);
     text3.setCharacterSize(30);
     sf::Text text4("pressing the spacebar stops the draw", font);
-    text4.setPosition(750, 650);
+    text4.setPosition(750, 700);
     text4.setFillColor(sf::Color::Black);
     text4.setCharacterSize(20);
     sf::Text text5("click on a pawn to move it", font);
-    text5.setPosition(750, 700);
+    text5.setPosition(750, 750);
     text5.setFillColor(sf::Color::Black);
     text5.setCharacterSize(20);
     sf::CircleShape triangle(30, 3);     //pawn
@@ -78,7 +115,6 @@ int main()
     triangle.setFillColor(sf::Color::Red);
     shape8.setPosition(489,120);
     shape8.setFillColor(sf::Color::Red);
-
     int i = 1; 
     bool game = false;
     while (window.isOpen())     // main loop
@@ -90,11 +126,10 @@ int main()
             if (event.key.code == sf::Keyboard::Escape)
                 window.close();
             sf::Vector2i position = sf::Mouse::getPosition(window);
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && position.x > 150 && position.x < 350 && position.y>620 && position.y < 690)
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && position.x > 150 && position.x < 350 && position.y>670 && position.y < 740)
                 game = true;
         }
 
-        
         if (game == false)     // start screen
         {
             window.clear(sf::Color(200, 200, 100));
@@ -122,6 +157,7 @@ int main()
             if (i == 6) i = 0;
             i++;
             window.setFramerateLimit(100);
+            boardfield();
             window.display();
         }
     }

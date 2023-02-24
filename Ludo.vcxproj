@@ -147,7 +147,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="board&amp;pawns.cpp" />
     <ClCompile Include="Ludo.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="board&amp;pawns.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
