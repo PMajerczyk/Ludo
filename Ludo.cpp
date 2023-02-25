@@ -84,7 +84,7 @@ void boardfield()
         if (i >= 3) j++;
         if (i < 3) k++;
     }
-    f[0].field(WIDTH / 2 - 470, HEIGHT / 2 + 370);     // fileds for blue pawns
+    f[0].field(WIDTH / 2 - 470, HEIGHT / 2 + 370);     // fileds for red pawns
     f[1].field(WIDTH / 2 - 470, HEIGHT / 2 + 265);
     f[2].field(WIDTH / 2 - 365, HEIGHT / 2 + 370);
     f[3].field(WIDTH / 2 - 365, HEIGHT / 2 + 265);
@@ -92,7 +92,7 @@ void boardfield()
     window.draw(f[1]);
     window.draw(f[2]);
     window.draw(f[3]);
-    f[4].field(WIDTH / 2 - 470, HEIGHT / 2 - 470);     // fileds for yellow pawns
+    f[4].field(WIDTH / 2 - 470, HEIGHT / 2 - 470);     // fileds for blue pawns
     f[5].field(WIDTH / 2 - 470, HEIGHT / 2 - 365);
     f[6].field(WIDTH / 2 - 365, HEIGHT / 2 - 470);
     f[7].field(WIDTH / 2 - 365, HEIGHT / 2 - 365);
@@ -100,7 +100,7 @@ void boardfield()
     window.draw(f[5]);
     window.draw(f[6]);
     window.draw(f[7]);
-    f[8].field(WIDTH / 2 + 370, HEIGHT / 2 - 470);     // fileds for green pawns
+    f[8].field(WIDTH / 2 + 370, HEIGHT / 2 - 470);     // fileds for yellow pawns
     f[9].field(WIDTH / 2 + 370, HEIGHT / 2 - 365);
     f[10].field(WIDTH / 2 + 265, HEIGHT / 2 - 470);
     f[11].field(WIDTH / 2 + 265, HEIGHT / 2 - 365);
@@ -108,7 +108,7 @@ void boardfield()
     window.draw(f[9]);
     window.draw(f[10]);
     window.draw(f[11]);
-    f[12].field(WIDTH / 2 + 370, HEIGHT / 2 + 370);     // fileds for red pawns
+    f[12].field(WIDTH / 2 + 370, HEIGHT / 2 + 370);     // fileds for green pawns
     f[13].field(WIDTH / 2 + 370, HEIGHT / 2 + 265);
     f[14].field(WIDTH / 2 + 265, HEIGHT / 2 + 370);
     f[15].field(WIDTH / 2 + 265, HEIGHT / 2 + 265);
@@ -116,6 +116,30 @@ void boardfield()
     window.draw(f[13]);
     window.draw(f[14]);
     window.draw(f[15]);
+    sf::CircleShape redarrow(30,3), bluearrow(30,3), yellowarrow(30,3), greenarrow(30,3);     // arrows
+    redarrow.setPosition(WIDTH/2 - 135, HEIGHT/2 + 400);
+    redarrow.setFillColor(sf::Color::Red);
+    redarrow.setOutlineThickness(5);
+    redarrow.setOutlineColor(sf::Color::Black);
+    window.draw(redarrow);
+    bluearrow.setRotation(90);
+    bluearrow.setPosition(WIDTH/2 - 400, HEIGHT/2 - 135);
+    bluearrow.setFillColor(sf::Color::Blue);
+    bluearrow.setOutlineThickness(5);
+    bluearrow.setOutlineColor(sf::Color::Black);
+    window.draw(bluearrow);
+    yellowarrow.setRotation(180);
+    yellowarrow.setPosition(WIDTH/2 + 135, HEIGHT/2 - 400);
+    yellowarrow.setFillColor(sf::Color::Yellow);
+    yellowarrow.setOutlineThickness(5);
+    yellowarrow.setOutlineColor(sf::Color::Black);
+    window.draw(yellowarrow);
+    greenarrow.setRotation(270);
+    greenarrow.setPosition(WIDTH/2 + 400, HEIGHT/2 + 135);
+    greenarrow.setFillColor(sf::Color::Green);
+    greenarrow.setOutlineThickness(5);
+    greenarrow.setOutlineColor(sf::Color::Black);
+    window.draw(greenarrow);
 }
 
 void setup_pawns()
@@ -136,6 +160,22 @@ void setup_pawns()
     window.draw(bluepawn[1]);
     window.draw(bluepawn[2]);
     window.draw(bluepawn[3]);
+    yellowpawn[0].pawn(875, 120, sf::Color::Yellow);
+    yellowpawn[1].pawn(980, 120, sf::Color::Yellow);
+    yellowpawn[2].pawn(980, 15, sf::Color::Yellow);
+    yellowpawn[3].pawn(875, 15, sf::Color::Yellow);
+    window.draw(yellowpawn[0]);
+    window.draw(yellowpawn[1]);
+    window.draw(yellowpawn[2]);
+    window.draw(yellowpawn[3]);
+    greenpawn[0].pawn(875, 855, sf::Color::Green);
+    greenpawn[1].pawn(980, 855, sf::Color::Green);
+    greenpawn[2].pawn(875, 750, sf::Color::Green);
+    greenpawn[3].pawn(980, 750, sf::Color::Green);
+    window.draw(greenpawn[0]);
+    window.draw(greenpawn[1]);
+    window.draw(greenpawn[2]);
+    window.draw(greenpawn[3]);
 }
 
 int main()
