@@ -9,7 +9,7 @@ sf::CircleShape shape1(8), shape2(8), shape3(8), shape4(8), shape5(8), shape6(8)
 sf::RectangleShape square, button;     // rectangles
 sf::Event event;     // key i mouse
 sf::Font font, font1;     // fonts
-Board b[4], y[4], g[4], r[4], p[28], f[16];     // fields
+Board b[3], y[3], g[3], r[3], p[32], f[16];     // fields
 Pawn redpawn[4], bluepawn[4], yellowpawn[4], greenpawn[4];     // pawns
 
 void dice(int n) 
@@ -44,19 +44,19 @@ void dice(int n)
 
 void boardfield()
 {
-    for (int i = 0; i < 4; i++){
+    for (int i = 0; i < 3; i++){
         b[i].field(WIDTH/2 - 155 - i*105, HEIGHT/2 - 50, 0, 0, 250);     // blue fields
         window.draw(b[i]);
     }
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 3; i++) {
         y[i].field(WIDTH/2 - 50, HEIGHT/2 - 155 - i*105, 250, 250, 0);     // yellow fields
         window.draw(y[i]);
     }
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 3; i++) {
         g[i].field(WIDTH/2 + 55 + i*105, HEIGHT/2 - 50, 0, 250, 0);     // green fields
         window.draw(g[i]);
     }
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 3; i++) {
         r[i].field(WIDTH/2 - 50, HEIGHT/2 + 55 + i*105, 250, 0, 0);     // red fields
         window.draw(r[i]);
     }
@@ -84,6 +84,14 @@ void boardfield()
         if (i >= 3) j++;
         if (i < 3) k++;
     }
+    p[29].field(WIDTH/2 - 470, HEIGHT/2 - 50);
+    window.draw(p[29]);
+    p[30].field(WIDTH/2 - 50, HEIGHT/2 - 470 );  
+    window.draw(p[30]);
+    p[31].field(WIDTH/2 + 370, HEIGHT/2 - 50);   
+    window.draw(p[31]);
+    p[32].field(WIDTH/2 - 50, HEIGHT/2 + 370);
+    window.draw(p[32]);
     f[0].field(WIDTH / 2 - 470, HEIGHT / 2 + 370);     // fileds for red pawns
     f[1].field(WIDTH / 2 - 470, HEIGHT / 2 + 265);
     f[2].field(WIDTH / 2 - 365, HEIGHT / 2 + 370);
