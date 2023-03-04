@@ -1,5 +1,6 @@
 ﻿#include <SFML/Graphics.hpp>
 #include "board&pawns.h"
+#include <Windows.h>
 
 #define WIDTH 1200     // window size
 #define HEIGHT 950
@@ -9,16 +10,25 @@ sf::CircleShape shape1(8), shape2(8), shape3(8), shape4(8), shape5(8), shape6(8)
 sf::RectangleShape square, button;     // rectangles
 sf::Event event;     // key i mouse
 sf::Font font, font1;     // fonts
-Board b[3], y[3], g[3], r[3], p[32], f[16];     // fields
-Pawn redpawn[4], bluepawn[4], yellowpawn[4], greenpawn[4];     // pawns
+Board b[3], y[3], g[3], r[3], p[32], f[16];     // fields 
+Pawn pawns[16];     // pawns
+const int cordsX[35] = {0,0,0,-105,-105,-105,0,0,/*b*/105,105,105,0,0,0,105,105,/*y*/0,0,0,105,105,105,0,0,/*g*/-105,-105,-105,0,0,0,-105,/**/0,0,0,0};     // repositioning coordinates
+const int cordsY[35] = {-105,-105,-105,0,0,0,-105,-105,/*b*/0,0,0,-105,-105,-105,0,0,/*y*/105,105,105,0,0,0,105,105,/*g*/0,0,0,105,105,105,0,/**/-105,-105,-105,-105};
+const int tabx[16] = { 140,245,245,140,140,245,245,140,875,980,980,875,875,980,980,875 };
+const int taby[16] = { 855,855,750,750,120,120,15 ,15 ,120,120,15 ,15 ,855,855,750,750 };     // starting coordinates
+int i = 1, n = 0, player = 0, tab[16] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
+bool game = false, result = true;
+
+void gamer();
 
 void dice(int n) 
 {
-    square.setFillColor(sf::Color::White);     // dice
+    square.setFillColor(sf::Color::White);     // dice 
     square.setSize(sf::Vector2f(100, 100));
     square.setOutlineThickness(5);
     square.setOutlineColor(sf::Color::Black);
     square.setPosition(WIDTH/2-50,HEIGHT/2-50);
+    window.draw(square);
     shape1.setFillColor(sf::Color::Black);     // dots 
     shape2.setFillColor(sf::Color::Black);
     shape3.setFillColor(sf::Color::Black);
@@ -84,14 +94,14 @@ void boardfield()
         if (i >= 3) j++;
         if (i < 3) k++;
     }
-    p[29].field(WIDTH/2 - 470, HEIGHT/2 - 50);
+    p[28].field(WIDTH/2 - 470, HEIGHT/2 - 50);
+    window.draw(p[28]);
+    p[29].field(WIDTH/2 - 50, HEIGHT/2 - 470 );  
     window.draw(p[29]);
-    p[30].field(WIDTH/2 - 50, HEIGHT/2 - 470 );  
+    p[30].field(WIDTH/2 + 370, HEIGHT/2 - 50);   
     window.draw(p[30]);
-    p[31].field(WIDTH/2 + 370, HEIGHT/2 - 50);   
+    p[31].field(WIDTH/2 - 50, HEIGHT/2 + 370);
     window.draw(p[31]);
-    p[32].field(WIDTH/2 - 50, HEIGHT/2 + 370);
-    window.draw(p[32]);
     f[0].field(WIDTH / 2 - 470, HEIGHT / 2 + 370);     // fileds for red pawns
     f[1].field(WIDTH / 2 - 470, HEIGHT / 2 + 265);
     f[2].field(WIDTH / 2 - 365, HEIGHT / 2 + 370);
@@ -150,40 +160,12 @@ void boardfield()
     window.draw(greenarrow);
 }
 
-void setup_pawns()
+void displayPawns()
 {
-    redpawn[0].pawn(140, 855, sf::Color::Red);
-    redpawn[1].pawn(245, 855, sf::Color::Red);
-    redpawn[2].pawn(245, 750, sf::Color::Red);
-    redpawn[3].pawn(140, 750, sf::Color::Red);
-    window.draw(redpawn[0]);
-    window.draw(redpawn[1]);
-    window.draw(redpawn[2]);
-    window.draw(redpawn[3]);
-    bluepawn[0].pawn(140, 120, sf::Color::Blue);
-    bluepawn[1].pawn(245, 120, sf::Color::Blue);
-    bluepawn[2].pawn(245, 15, sf::Color::Blue);
-    bluepawn[3].pawn(140, 15, sf::Color::Blue);
-    window.draw(bluepawn[0]);
-    window.draw(bluepawn[1]);
-    window.draw(bluepawn[2]);
-    window.draw(bluepawn[3]);
-    yellowpawn[0].pawn(875, 120, sf::Color::Yellow);
-    yellowpawn[1].pawn(980, 120, sf::Color::Yellow);
-    yellowpawn[2].pawn(980, 15, sf::Color::Yellow);
-    yellowpawn[3].pawn(875, 15, sf::Color::Yellow);
-    window.draw(yellowpawn[0]);
-    window.draw(yellowpawn[1]);
-    window.draw(yellowpawn[2]);
-    window.draw(yellowpawn[3]);
-    greenpawn[0].pawn(875, 855, sf::Color::Green);
-    greenpawn[1].pawn(980, 855, sf::Color::Green);
-    greenpawn[2].pawn(875, 750, sf::Color::Green);
-    greenpawn[3].pawn(980, 750, sf::Color::Green);
-    window.draw(greenpawn[0]);
-    window.draw(greenpawn[1]);
-    window.draw(greenpawn[2]);
-    window.draw(greenpawn[3]);
+    for (int i = 0; i < 16; i++) {
+        pawns[i].pawn();
+        window.draw(pawns[i]);
+    }
 }
 
 int main()
@@ -224,8 +206,21 @@ int main()
     triangle.setFillColor(sf::Color::Red);
     shape8.setPosition(489,120);
     shape8.setFillColor(sf::Color::Red);
-    int i = 1; 
-    bool game = false,result = true;
+    for (int i = 0; i < 4; i++) {     // pawns setup
+        pawns[i].color = "Red";
+        pawns[i+4].color = "Blue";
+        pawns[i+8].color = "Yellow";
+        pawns[i+12].color = "Green";
+        pawns[i].index = 0;
+        pawns[i+4].index = 0;
+        pawns[i+8].index = 0;
+        pawns[i+12].index = 0;
+    }
+    for (int i = 0; i < 16; i++) {
+        pawns[i].X = tabx[i];
+        pawns[i].Y = taby[i];
+    }
+
     while (window.isOpen())     // main loop
     {
         while (window.pollEvent(event))     // event
@@ -258,20 +253,152 @@ int main()
             window.setFramerateLimit(3);
             window.display();
         }
-        else     // game
+        else     // game        
         {
-            window.clear(sf::Color(200, 200, 100));
-            window.draw(square);
-            dice(i);
-            if (result == true) i++; 
-            if (i == 6) i = 0;
-            if (event.key.code == sf::Keyboard::Space)
-                result = false;
             window.setFramerateLimit(100);
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+                result = false; 
+            if (result == false)
+            {
+                gamer();
+                result = true;
+            }
+            else i++;
+            if (i == 7) i = 1;
+            window.clear(sf::Color(200, 200, 100));
+            dice(i);
             boardfield();
-            setup_pawns();
+            displayPawns();
             window.display();
-        }
+        }               
     }
     return 0;
 }
+
+void gamer()
+{
+    int pawnOnBoard = 0;
+    if (i == 6 && n < 3) 
+    {
+        n++;
+        for (int j = 0; j < 4; j++)     // number of pawns on board
+            if(tab[j]==1) pawnOnBoard += 1;
+        if (pawnOnBoard > 0)
+        { 
+            while (pawnOnBoard > 0)
+            {
+                if (sf::Mouse::isButtonPressed(sf::Mouse::Left))     // select a pawn
+                {
+                    sf::Vector2i position = sf::Mouse::getPosition(window);
+                    for (int j = 0; j < 4; j++) {
+                        if (position.x > WIDTH / 2 - 470 && position.x < WIDTH / 2 - 260 && position.y>HEIGHT / 2 + 265 && position.y < HEIGHT / 2 + 475)
+                        {
+                            pawns[pawnOnBoard].X = WIDTH / 2 - 145;
+                            pawns[pawnOnBoard].Y = HEIGHT / 2 + 380;    // pawn goes on the board
+                            tab[pawnOnBoard] = 1;
+                            pawnOnBoard = 0;
+                            window.clear(sf::Color(200, 200, 100));
+                            dice(i);
+                            boardfield();
+                            displayPawns();
+                            window.display();
+                            Sleep(1000);
+                            break;
+                        }
+                        else if ((pawns[j].X + 40 - position.x) * (pawns[j].X + 40 - position.x) + (pawns[j].Y + 40 - position.y) * (pawns[j].Y + 40 - position.y) <= 1600)
+                        {
+                            for (int a = 0; a < i; a++) {
+                                window.clear(sf::Color(200, 200, 100));
+                                dice(i);
+                                boardfield();
+                                pawns[j].X += cordsX[pawns[j].index + a];
+                                pawns[j].Y += cordsY[pawns[j].index + a];     // pawn moves 
+                                displayPawns();
+                                window.display();
+                                Sleep(250);
+                            }
+                            for (int i = 0; i < 12; i++)
+                                if (pawns[j].X == pawns[i + 4].X && pawns[j].Y == pawns[i + 4].Y) {     // pawn on another pawn 
+                                    pawns[i + 4].X = tabx[i + 4];
+                                    pawns[i + 4].Y = taby[i + 4];
+                                    pawns[i + 4].index = 0;
+                                    tab[i + 4] = 0;
+                            }
+                            pawns[j].index += i;
+                            pawnOnBoard = 0;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        else {
+            pawns[pawnOnBoard].X = WIDTH / 2 - 145;
+            pawns[pawnOnBoard].Y = HEIGHT / 2 + 380;     // pawn goes on the board
+            tab[pawnOnBoard] = 1;
+            window.clear(sf::Color(200, 200, 100));
+            dice(i);
+            boardfield();
+            displayPawns();
+            window.display();
+            Sleep(1000);
+        }
+        if (n >= 3){     // max 3 throws
+            n = 0;
+            player++;
+            if (player == 4) player = 0;
+        }
+        pawnOnBoard = 0;
+    }
+
+    if (i != 6)
+    {
+        for (int j = 0; j < 4; j++)     // number of pawns on board
+            if (tab[j] == 1) pawnOnBoard += 1;
+        if (pawnOnBoard > 0)
+        {
+            while (pawnOnBoard > 0)
+            {
+                if (sf::Mouse::isButtonPressed(sf::Mouse::Left))     // select a pawn
+                {
+                    sf::Vector2i position = sf::Mouse::getPosition(window);
+                    for (int j = 0; j < 4; j++) {
+                        if ((pawns[j].X+40-position.x)*(pawns[j].X+40-position.x)+(pawns[j].Y+40-position.y)*(pawns[j].Y+40-position.y)<=1600 && tab[j]==1)
+                        {
+                            for (int a = 0; a < i; a++) {
+                                window.clear(sf::Color(200, 200, 100));
+                                dice(i);
+                                boardfield();
+                                pawns[j].X += cordsX[pawns[j].index + a];
+                                pawns[j].Y += cordsY[pawns[j].index + a];     // pawn moves
+                                displayPawns();
+                                window.display();
+                                Sleep(250);
+                            }
+                            for (int i = 0; i < 12; i++)
+                                if (pawns[j].X == pawns[i + 4].X && pawns[j].Y == pawns[i + 4].Y) {     // pawn on another pawn 
+                                    pawns[i + 4].X = tabx[i + 4];
+                                    pawns[i + 4].Y = taby[i + 4];
+                                    pawns[i + 4].index = 0;
+                                    tab[i + 4] = 0;
+                                }
+                            pawns[j].index += i;
+                            pawnOnBoard = 0;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        player++;
+        if (player == 4) player = 0;
+        n = 0;
+        dice(i);
+        boardfield();
+        displayPawns();
+        window.display();
+        Sleep(1000);
+    }  
+    for (int j = 0; j < 4; j++)
+        if (pawns[j].X == WIDTH / 2 - 40 && pawns[j].Y == HEIGHT / 2 - 40) pawns[j].Y = 1000;     // pawn reaches the finish line
+} 

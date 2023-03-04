@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <string.h>
 
 class Board : public sf::RectangleShape
 {
@@ -9,5 +10,9 @@ class Board : public sf::RectangleShape
 class Pawn : public sf::CircleShape
 {
 	public:
-	void pawn(float, float, static const sf::Color color);
+	int X;
+	int Y;
+	std::string color;
+	int index;
+	void pawn();
 };
