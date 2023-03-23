@@ -10,14 +10,20 @@ void Board::field(float x, float y, int c1, int c2, int c3)
 }
 
 
-void Pawn::pawn()
+void Pawn::pawn(bool light)
 {
     CircleShape::setRadius(40);
     if (color == "Red") CircleShape::setFillColor(sf::Color::Red);
     if (color == "Blue") CircleShape::setFillColor(sf::Color::Blue);
     if (color == "Yellow") CircleShape::setFillColor(sf::Color::Yellow);
     if (color == "Green") CircleShape::setFillColor(sf::Color::Green);
-    CircleShape::setOutlineThickness(5);
-    CircleShape::setOutlineColor(sf::Color::Black);
+    if (light == true) {
+        CircleShape::setOutlineThickness(7);
+        CircleShape::setOutlineColor(sf::Color(255, 255, 255));
+    }
+    else {
+        CircleShape::setOutlineThickness(5);
+        CircleShape::setOutlineColor(sf::Color::Black);
+    }
     CircleShape::setPosition(X, Y);
 }

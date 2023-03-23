@@ -14,5 +14,5 @@ class Pawn : public sf::CircleShape
 	int Y;
 	std::string color;
 	int index;
-	void pawn();
+	void pawn(bool=false);
 };
