@@ -186,10 +186,13 @@ void displayPawns(bool light = false)
 
 void gamer()
 {
-    int pawnOnBoard = 0, x=0;
+    int pawnOnBoard = 0, x = 0, pawnOnBase = 0;
     bool next = false;
-    for (int j = 0; j < 4; j++)     // number of pawns on board
+    for (int j = 0; j < 4; j++) {     // number of pawns on board
+        if (35 - i < pawns[j].index && tab[j] != 2) tab[j] = 3;
         if (tab[j] == 1) pawnOnBoard += 1;
+        if (tab[j] == 0) pawnOnBase += 1;
+    }
     if (pawnOnBoard > 0) {
         window.clear(sf::Color(200, 200, 100));
         dice(i);
@@ -208,7 +211,7 @@ void gamer()
             {
                 sf::Vector2i position = sf::Mouse::getPosition(window);
                 for (int j = 0; j < 4; j++) {
-                    if (i == 6 && position.x > WIDTH / 2 - 470 && position.x < WIDTH / 2 - 260 && position.y>HEIGHT / 2 + 265 && position.y < HEIGHT / 2 + 475)
+                    if (i == 6 && position.x > WIDTH / 2 - 470 && position.x < WIDTH / 2 - 260 && position.y>HEIGHT / 2 + 265 && position.y < HEIGHT / 2 + 475 && pawnOnBase > 0) 
                     {
                         for (int j = 0; j < 4; j++)
                             if (tab[j] == 0) {
@@ -226,7 +229,7 @@ void gamer()
                         pawnOnBoard = 0;
                         break;
                     }
-                    else if ((pawns[j].X + 40 - position.x) * (pawns[j].X + 40 - position.x) + (pawns[j].Y + 40 - position.y) * (pawns[j].Y + 40 - position.y) <= 1600)
+                    else if ((pawns[j].X + 40 - position.x) * (pawns[j].X + 40 - position.x) + (pawns[j].Y + 40 - position.y) * (pawns[j].Y + 40 - position.y) <= 1600 && tab[j]==1)
                     {
                         for (int a = 0; a < i; a++) {
                             window.clear(sf::Color(200, 200, 100));
@@ -263,7 +266,7 @@ void gamer()
         }
     }
     else {
-        if (i == 6) {     // pawn goes on the board
+        if (i == 6 && pawnOnBase > 0) {     // pawn goes on the board  
             for (int j = 0; j < 4; j++)
                 if (tab[j] == 0) {
                     pawns[j].X = WIDTH / 2 - 145;
@@ -284,6 +287,8 @@ void gamer()
         }
     }
     for (int j = 0; j < 4; j++)
+        if (tab[j] == 3) tab[j] = 1;
+    for (int j = 0; j < 4; j++)
         if (pawns[j].X == WIDTH / 2 - 40 && pawns[j].Y == HEIGHT / 2 - 40) {     // pawn reaches the finish line
             pawns[j].Y = 1000;
             tab[j] = 2;
@@ -299,11 +304,12 @@ void gamer()
 
 void robotGamers()
 {
-    int pawnOnBoard = 0, h = 20, pawnOnFinish = 0;
+    int pawnOnBoard = 0, h = 20, pawnOnBase = 0;
     bool next = false;
     for (int j = 0; j < 4; j++) {    // number of pawns on board and finish
+        if (35 - i < pawns[player * 4 + j].index && tab[player * 4 + j] != 2) tab[player * 4 + j] = 3;
         if (tab[player * 4 + j] == 1) pawnOnBoard += 1;
-        if (tab[player * 4 + j] == 2) pawnOnFinish += 1;
+        if (tab[player * 4 + j] == 0) pawnOnBase += 1;
     }
     if (pawnOnBoard > 0) {
         for (int k = 0; k < 4; k++)
@@ -323,6 +329,8 @@ void robotGamers()
                     }
                     if (l == i-1) pawns[player * 4 + k].index += i-1;
                 }
+        for (int j = 0; j < 4; j++)
+            if (35 - i == pawns[player * 4 + j].index) h = player * 4 + j;
         for (int k = 0; k < 4; k++)
             for (int j = 0; j < 16; j++)
                 if (j != player * 4 && j != player * 4 + 1 && j != player * 4 + 2 && j != player * 4 + 3)
@@ -386,7 +394,7 @@ void robotGamers()
             pawns[h].index += i;
         }
         else {     // beat is not possible
-            if (i == 6 && pawnOnBoard + pawnOnFinish < 4) {
+            if (i == 6 && pawnOnBase > 0) {
                 for (int j = 0; j < 4; j++) 
                     if (tab[player * 4 + j] == 0) {
                         if (player == 1) {
@@ -413,7 +421,10 @@ void robotGamers()
             }
             else if (pawnOnBoard > 0) {
                 for (int j = 0; j < 4; j++)
-                    if (tab[player * 4 + j] == 1) h = player * 4 + j;
+                    if (tab[player * 4 + j] == 1) {
+                        h = player * 4 + j;
+                        break;
+                    }
                 for (int a = 0; a < i; a++) {
                     window.clear(sf::Color(200, 200, 100));
                     dice(i);
@@ -448,7 +459,7 @@ void robotGamers()
         }
     }
     else {     // 0 pawns on the board
-        if (i == 6) {
+        if (i == 6 && pawnOnBase > 0) {
             for (int j = 0; j < 4; j++)
                 if (tab[player * 4 + j] == 0) {
                     if (player == 1) {
@@ -478,6 +489,8 @@ void robotGamers()
             Sleep(1000);
         }
     }
+    for (int j = 0; j < 4; j++)
+        if (tab[player * 4 + j] == 3) tab[player * 4 + j] = 1;
     for (int j = 0; j < 4; j++)
         if (pawns[player * 4 + j].X == WIDTH / 2 - 40 && pawns[player * 4 + j].Y == HEIGHT / 2 - 40) {     // pawn reaches the finish line
             pawns[player * 4 + j].Y = 1000;
