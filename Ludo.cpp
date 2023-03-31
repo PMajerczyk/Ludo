@@ -12,7 +12,9 @@ sf::RectangleShape square, button, neutral;     // rectangles
 sf::Event event;     // key i mouse
 sf::Font font, font1;     // fonts
 Board b[3], y[3], g[3], r[3], p[32], f[16];     // fields 
-Pawn pawns[16];     // pawns 
+Pawn pawns[16];     // pawns
+sf::Texture texture1, texture2;
+sf::Sprite sprite1, sprite2 ;
 const int cordsX[35] = {0,0,0,-105,-105,-105,0,0,105,105,105,0,0,0,105,105,0,0,0,105,105,105,0,0,-105,-105,-105,0,0,0,-105,0,0,0,0};     // repositioning coordinates
 const int cordsY[35] = {-105,-105,-105,0,0,0,-105,-105,0,0,0,-105,-105,-105,0,0,105,105,105,0,0,0,105,105,0,0,0,105,105,105,0,-105,-105,-105,-105};
 const int tabx[16] = { 140,245,245,140,140,245,245,140,875,980,980,875,875,980,980,875 };
@@ -241,20 +243,23 @@ void gamer()
                             window.display();
                             Sleep(250);
                         }
-                        for (int i = 0; i < 12; i++)
-                            if (pawns[j].X == pawns[i + 4].X && pawns[j].Y == pawns[i + 4].Y){     // pawn on another pawn 
+                        for (int k = 0; k < 12; k++)
+                            if (pawns[j].X == pawns[k + 4].X && pawns[j].Y == pawns[k + 4].Y){     // pawn on another pawn 
                                 if ((pawns[j].X == WIDTH / 2 - 145 && pawns[j].Y == HEIGHT / 2 + 380) || (pawns[j].X == WIDTH / 2 - 460 && pawns[j].Y == HEIGHT / 2 - 145)
                                     || (pawns[j].X == WIDTH / 2 + 65 && pawns[j].Y == HEIGHT / 2 - 460) || (pawns[j].X == WIDTH / 2 + 380 && pawns[j].Y == HEIGHT / 2 + 65)) break;
-                                pawns[i + 4].X = tabx[i + 4];
-                                pawns[i + 4].Y = taby[i + 4];
-                                pawns[i + 4].index = 0;
-                                tab[i + 4] = 0;
-                                x = 1;
+                                sprite2.setPosition(pawns[j].X, pawns[j].Y);
                                 window.clear(sf::Color(200, 200, 100));
                                 dice(i);
                                 boardfield();
                                 displayPawns();
+                                window.draw(sprite2);
                                 window.display();
+                                Sleep(1000);
+                                pawns[k + 4].X = tabx[k + 4];
+                                pawns[k + 4].Y = taby[k + 4];
+                                pawns[k + 4].index = 0;
+                                tab[k + 4] = 0;
+                                x = 1;
                             }
                         if(x==0 && i!=6) next = true;
                         pawns[j].index += i;
@@ -292,7 +297,13 @@ void gamer()
         if (pawns[j].X == WIDTH / 2 - 40 && pawns[j].Y == HEIGHT / 2 - 40) {     // pawn reaches the finish line
             pawns[j].Y = 1000;
             tab[j] = 2;
-            Sleep(500);
+            window.clear(sf::Color(200, 200, 100));
+            dice(i);
+            boardfield();
+            displayPawns();
+            window.draw(sprite1);
+            window.display();
+            Sleep(1000);
             next = false;
         }
     n++;
@@ -381,16 +392,19 @@ void robotGamers()
                     if (pawns[h].X == pawns[j].X && pawns[h].Y == pawns[j].Y){
                         if ((pawns[j].X == WIDTH / 2 - 145 && pawns[j].Y == HEIGHT / 2 + 380) || (pawns[j].X == WIDTH / 2 - 460 && pawns[j].Y == HEIGHT / 2 - 145)
                             || (pawns[j].X == WIDTH / 2 + 65 && pawns[j].Y == HEIGHT / 2 - 460) || (pawns[j].X == WIDTH / 2 + 380 && pawns[j].Y == HEIGHT / 2 + 65)) break;
-                        pawns[j].X = tabx[j];
-                        pawns[j].Y = taby[j];
-                        pawns[j].index = 0;
-                        tab[j] = 0;
+                        sprite2.setPosition(pawns[h].X, pawns[h].Y);
                         window.clear(sf::Color(200, 200, 100));
                         dice(i);
                         boardfield();
                         displayPawns();
+                        window.draw(sprite2);
                         window.display();
-                    }
+                        Sleep(1000);
+                        pawns[j].X = tabx[j];
+                        pawns[j].Y = taby[j];
+                        pawns[j].index = 0;
+                        tab[j] = 0;
+                    } 
             pawns[h].index += i;
         }
         else {     // beat is not possible
@@ -495,8 +509,15 @@ void robotGamers()
         if (pawns[player * 4 + j].X == WIDTH / 2 - 40 && pawns[player * 4 + j].Y == HEIGHT / 2 - 40) {     // pawn reaches the finish line
             pawns[player * 4 + j].Y = 1000;
             tab[player * 4 + j] = 2;
-            Sleep(500);
+            window.clear(sf::Color(200, 200, 100));
+            dice(i);
+            boardfield();
+            displayPawns();
+            window.draw(sprite1);
+            window.display();
+            Sleep(1000);
             next = false;
+            break;
         }
     n++;
     if (n >= 3 || next == true) {     // max 3 throws
@@ -553,6 +574,11 @@ int main()
     text6.setPosition(800, 750);
     text6.setFillColor(sf::Color::Black);
     text6.setCharacterSize(20);
+    texture1.loadFromFile("Cup.png");
+    sprite1.setTexture(texture1);
+    sprite1.setPosition(WIDTH / 2 - 60, HEIGHT/2 - 100);
+    texture2.loadFromFile("X.png");
+    sprite2.setTexture(texture2);
     for (int i = 0; i < 4; i++) {     // pawns setup
         pawns[i].color = "Red";
         pawns[i+4].color = "Blue";
@@ -606,30 +632,32 @@ int main()
         }
         else     // game        
         {
-           
-            window.setFramerateLimit(100);
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && player == 0)
-                result = false;
-            if (player != 0 && counter == 1) random = rand() % 50 + 100;
-            if (player != 0) counter++;
-            if (counter == random) {
-                result = false;
-                counter = 1;
+            if (tab[player*4] == 2 && tab[player*4+1] == 2 && tab[player*4+2] == 2 && tab[player*4+3] == 2) player++;
+            else {
+                window.setFramerateLimit(100);
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && player == 0)
+                    result = false;
+                if (player != 0 && counter == 1) random = rand() % 50 + 100;
+                if (player != 0) counter++;
+                if (counter == random) {
+                    result = false;
+                    counter = 1;
+                }
+                if (result == false)
+                {
+                    Sleep(250);
+                    if (player == 0) gamer();
+                    else robotGamers();
+                    result = true;
+                }
+                else i++;
+                if (i == 7) i = 1;
+                window.clear(sf::Color(200, 200, 100));
+                boardfield();
+                dice(i);
+                displayPawns();
+                window.display();
             }
-            if (result == false)
-            {
-                Sleep(250);
-                if (player == 0) gamer();
-                else robotGamers();
-                result = true;
-            }
-            else i++;
-            if (i == 7) i = 1;
-            window.clear(sf::Color(200, 200, 100));
-            boardfield();
-            dice(i);
-            displayPawns();
-            window.display();
         }               
     }
     return 0;
