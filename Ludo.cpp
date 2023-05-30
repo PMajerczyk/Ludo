@@ -281,7 +281,7 @@ void gamer()
                             displayPawns();
                             window.display();
                         }
-                        /*for (int k = 0; k < 12; k++)
+                        for (int k = 0; k < 12; k++)
                             if (pawns[j].X == pawns[k + 4].X && pawns[j].Y == pawns[k + 4].Y){     // pawn on another pawn
                                 if ((pawns[j].X == WIDTH / 2 - 145 && pawns[j].Y == HEIGHT / 2 + 380) || (pawns[j].X == WIDTH / 2 - 460 && pawns[j].Y == HEIGHT / 2 - 145)
                                     || (pawns[j].X == WIDTH / 2 + 65 && pawns[j].Y == HEIGHT / 2 - 460) || (pawns[j].X == WIDTH / 2 + 380 && pawns[j].Y == HEIGHT / 2 + 65)) break;
@@ -298,7 +298,7 @@ void gamer()
                                 pawns[k + 4].index = 0;
                                 tab[k + 4] = 0;
                                 x = 1;
-                            } */
+                            } 
                         if (x == 0 && i != 6) next = true;
                         pawns[j].index += i;
                         pawnOnBoard = 0;
@@ -425,7 +425,7 @@ void robotGamers()
                 window.draw(sprite2);
                 window.display();
             }
-            /*for (int j = 0; j < 16; j++)     // knock down pawns
+            for (int j = 0; j < 16; j++)     // knock down pawns
                 if (j != player * 4 && j != player * 4 + 1 && j != player * 4 + 2 && j != player * 4 + 3)
                     if (pawns[h].X == pawns[j].X && pawns[h].Y == pawns[j].Y){
                         if ((pawns[j].X == WIDTH / 2 - 145 && pawns[j].Y == HEIGHT / 2 + 380) || (pawns[j].X == WIDTH / 2 - 460 && pawns[j].Y == HEIGHT / 2 - 145)
@@ -442,7 +442,7 @@ void robotGamers()
                         pawns[j].Y = taby[j];
                         pawns[j].index = 0;
                         tab[j] = 0;
-                    } */
+                    } 
             if (((pawns[h].X == WIDTH / 2 - 145 && pawns[h].Y == HEIGHT / 2 + 380) || (pawns[h].X == WIDTH / 2 - 460 && pawns[h].Y == HEIGHT / 2 - 145)
                 || (pawns[h].X == WIDTH / 2 + 65 && pawns[h].Y == HEIGHT / 2 - 460) || (pawns[h].X == WIDTH / 2 + 380 && pawns[h].Y == HEIGHT / 2 + 65)) && i != 6)
                 next = true;
@@ -566,8 +566,8 @@ void robotGamers()
 
 int main()
 {
-    font.loadFromFile("arial.ttf");
-    font1.loadFromFile("RAVIE.ttf");
+    font.loadFromFile("fonts/arial.ttf");
+    font1.loadFromFile("fonts/RAVIE.ttf");
     sf::Text text("Ludo", font1);     // title
     text.setPosition(350, 100);
     text.setFillColor(sf::Color::Black);
@@ -611,10 +611,10 @@ int main()
     text6.setPosition(800, 750);
     text6.setFillColor(sf::Color::Black);
     text6.setCharacterSize(20);
-    texture1.loadFromFile("Cup.png");
+    texture1.loadFromFile("img/Cup.png");
     sprite1.setTexture(texture1);
     sprite1.setPosition(WIDTH / 2 - 60, HEIGHT / 2 - 100);
-    texture2.loadFromFile("X.png");
+    texture2.loadFromFile("img/X.png");
     sprite2.setTexture(texture2);
     for (int i = 0; i < 4; i++) {     // pawns setup
         pawns[i].color = "Red";
