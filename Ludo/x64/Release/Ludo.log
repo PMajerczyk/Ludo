@@ -1,0 +1,32 @@
+﻿  Ludo.cpp
+C:\Users\User\OneDrive\Pulpit\Ludoo\Ludo\Ludo\Ludo.cpp(30,40): warning C4244: "argument": konwersja z "const int" do "float", możliwa utrata danych
+C:\Users\User\OneDrive\Pulpit\Ludoo\Ludo\Ludo\Ludo.cpp(30,31): warning C4244: "argument": konwersja z "const int" do "float", możliwa utrata danych
+C:\Users\User\OneDrive\Pulpit\Ludoo\Ludo\Ludo\Ludo.cpp(31,52): warning C4244: "argument": konwersja z "const int" do "float", możliwa utrata danych
+C:\Users\User\OneDrive\Pulpit\Ludoo\Ludo\Ludo\Ludo.cpp(31,39): warning C4244: "argument": konwersja z "const int" do "float", możliwa utrata danych
+C:\Users\User\OneDrive\Pulpit\Ludoo\Ludo\Ludo\Ludo.cpp(32,52): warning C4244: "argument": konwersja z "const int" do "float", możliwa utrata danych
+C:\Users\User\OneDrive\Pulpit\Ludoo\Ludo\Ludo\Ludo.cpp(32,39): warning C4244: "argument": konwersja z "const int" do "float", możliwa utrata danych
+C:\Users\User\OneDrive\Pulpit\Ludoo\Ludo\Ludo\Ludo.cpp(33,55): warning C4244: "argument": konwersja z "const int" do "float", możliwa utrata danych
+C:\Users\User\OneDrive\Pulpit\Ludoo\Ludo\Ludo\Ludo.cpp(33,41): warning C4244: "argument": konwersja z "const int" do "float", możliwa utrata danych
+C:\Users\User\OneDrive\Pulpit\Ludoo\Ludo\Ludo\Ludo.cpp(38,43): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+C:\Users\User\OneDrive\Pulpit\Ludoo\Ludo\Ludo\Ludo.cpp(39,64): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+C:\Users\User\OneDrive\Pulpit\Ludoo\Ludo\Ludo\Ludo.cpp(40,46): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+C:\Users\User\OneDrive\Pulpit\Ludoo\Ludo\Ludo\Ludo.cpp(41,63): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+C:\Users\User\OneDrive\Pulpit\Ludoo\Ludo\Ludo\Ludo.cpp(64,76): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+C:\Users\User\OneDrive\Pulpit\Ludoo\Ludo\Ludo\Ludo.cpp(64,48): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+C:\Users\User\OneDrive\Pulpit\Ludoo\Ludo\Ludo\Ludo.cpp(65,76): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+C:\Users\User\OneDrive\Pulpit\Ludoo\Ludo\Ludo\Ludo.cpp(65,48): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+C:\Users\User\OneDrive\Pulpit\Ludoo\Ludo\Ludo\Ludo.cpp(66,75): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+C:\Users\User\OneDrive\Pulpit\Ludoo\Ludo\Ludo\Ludo.cpp(66,47): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+C:\Users\User\OneDrive\Pulpit\Ludoo\Ludo\Ludo\Ludo.cpp(67,75): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+C:\Users\User\OneDrive\Pulpit\Ludoo\Ludo\Ludo\Ludo.cpp(67,48): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+C:\Users\User\OneDrive\Pulpit\Ludoo\Ludo\Ludo\Ludo.cpp(80,32): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+C:\Users\User\OneDrive\Pulpit\Ludoo\Ludo\Ludo\Ludo.cpp(375,83): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+C:\Users\User\OneDrive\Pulpit\Ludoo\Ludo\Ludo\Ludo.cpp(375,66): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+C:\Users\User\OneDrive\Pulpit\Ludoo\Ludo\Ludo\Ludo.cpp(465,75): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+C:\Users\User\OneDrive\Pulpit\Ludoo\Ludo\Ludo\Ludo.cpp(465,58): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+  Trwa generowanie kodu
+  2 of 103 functions ( 1.9%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Zakończono generowanie kodu
+  Ludo.vcxproj -> C:\Users\User\OneDrive\Pulpit\Ludoo\Ludo\x64\Release\Ludo.exe
